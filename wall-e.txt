@@ -1,0 +1,89 @@
+
+- Nhận diện được người quen
+- Nhận diện được động tác
+  + yêu cầu đứng im, di chuyển theo
+  + yêu cầu làm theo lệnh bằng chữ viết (dùng handwritten)
+  + để nhận diện được thao tác tay:
+    + sử dụng các cảm biến 3 chiều đặt ở lòng bàn tay và các đầu ngón tay
+    sau đó cho học từ các thao tác ghi lại được (k-mean clustering)
+    + Sử dụng Open CV
+
+- Nhận diện giọng nói
+- Hiển thị vision lên màn hình
+- Nhận diện cảm xúc và phản ứng phù hợp (Machine learning)
+
+[Nâng cao]
+- Di chuyển thông minh, hành động linh hoạt chuẩn xác (renforcement learning)
+
+--------------------------------------------------------------------------
+
+[Demo nhẹ]
+- Phát hiện khuôn mặt thời gian thực (Open CV)
+- Nhận diện khung cảnh (Computer Vision)
+  + 6 lần/phút
+- Chạy Face API để nhận diện cảm xúc, tóc tai...  (Face detect)
+  + Hiển thị kết quả lên web
+- Nhận diện được danh tính người (Face Identify)
+  + Nếu người quen thì sẽ sáng đèn và hiển thị thông tin lên giao diện (GPIO)
+  (* Để tạo group person, person, person face sẽ dùng giao diện web và truyền thông tin xuống dưới raspi để chạy API)
+
+* Giao diện:
+- Hiển thị trên web (Web)
+- 2 khung nhìn chính: (Web)
+  + thời gian thực
+  + từng frame theo kết quả từ Face API + khung cảnh tại thời điểm đó
+- 1 Giao diện để tạo group person... (Web - Web Socket)
+
+[*] Lập trình:
+- Raspi:
+  + Module Open CV (KID)
+  + Module Computer Vision (dễ)
+  + Module Face APIs (trung bình)
+  + Module GPIO (dễ)
+  + Main (KID)
+- Web (trung bình + khó):
+  + 2 Giao diện
+    + Livestream thời gian thực từ camera Raspi
+    + Kết quả từ Face API
+  + 1 Giao diện để tạo:
+    + Group person
+    + Person
+    + Person Face
+
+-------------------------------------------------
+
+[*] Ý tưởng đề tài:
+- Tạo nên robot có khả năng tương tác với con người qua giọng nói, hành động. Có khả năng hiểu và phản ứng lại với cảm xúc con người. Từ đó có thể trò chuyện, tâm sự giúp chúng ta giải tỏa căng thẳng, các vấn đề tâm lý trong cuộc sống, hay vui đùa cùng trẻ em. Hơn nữa còn có thể nhận lệnh từ cử chỉ điều khiển giúp hỗ trợ con người làm các công việc hằng ngày. Bên cạnh đó còn được trang bị thêm các cảm biến giúp có khả năng nhận thức đặc biệt về môi trường bên ngoài hơn, để có thể ra quyết định xử lý thông trong các trường hợp đặc biệt (ví dụ như nhận biết trời tối để bật đèn, trời mưa để cất quần áo phơi, nhận biết hỏa hoạn qua nhiệt độ và báo động, hay nhận biết môi trường ẩm mốc...)
+
+- Phần cứng:
+  + Raspberry Pi 3 Model B:
+    + Thông số kĩ thuật
+    + Các module đi kèm: module wifi, bluetooth (tên rõ ràng, thông số kĩ thuật, phạm vi truyền dữ liệu, tốc độ truyền)
+  + Thiết bị cảm ứng ánh sáng
+  + Đèn báo hiệu (dùng để phản ứng lại với cảm xúc người đối diện)
+  + Đèn chiếu sáng (dùng để phản ứng lại với môi trường)
+  + Camera noIR v2:
+    + Độ phân giải khi chụp
+    + Độ phân giải khi quay video
+    + Khả năng chụp trong bóng tối
+    + Điều chỉnh tiêu cự thủ công
+    + ...
+
+- Phần mềm:
+  + Chương trình trên Raspi:
+    + Viết trên python
+    + Sử dụng module WebSockets, asyncio để tạo server giúp các máy tính ngoài mạng có thể truy cập lấy dữ liệu, gửi yêu cầu phân tích
+    + OpenCV để nhận diện khuôn mặt thời gian thực
+    + Microsoft Computer Vision API: phân tích khung cảnh hiện tại, đồng thời nhận diện khuôn mặt, giới tính, tuổi tác người trong khung cảnh
+    + Microsoft Face API: Phân tích sâu khuôn mặt, hình dáng, ngũ quan, trang sức... và nhận biết cảm xúc, mức độ hạnh phúc... Ngoài ra còn giúp nhận diện danh tính người trong ảnh với dữ liệu rèn luyện trước
+  
+  + Chương trình trên Web:
+    + Sử dụng các ngôn ngữ lập trình web front-end (HTML, CSS, JS) và một số bộ thư viện hỗ trợ (Bootstrap). Viết trên nền tảng tiện ích cho trình duyệt nhân chromium (khả dụng trên chrome, cốc cốc, chromium)
+    + Sử dụng Websocket để kết nối giao tiếp với Raspi
+    + Sử dụng Voice Recognition của Google để nhận diện giọng nói, sau đó truyền xuống Raspi để xử lý
+    + Sử dụng Speech to text của chrome để phát lại nội dung trả lời từ Raspi
+    (+) Tính năng hiện có:
+      + Hiển thị kết quả nhận diện khuôn mặt thời gian thực từ Raspi
+      + Hiển thị kết quả phân tích khuôn mặt (cảm xúc, tuổi tác..) từ Raspi
+      + Hiển thị nội dung trả lời từ Raspi
+      + Giao diện để thiết đặt, rèn luyện mô hình nhận diện danh tính người cho Microsoft Face API (yêu cầu được gửi tới Raspi)
