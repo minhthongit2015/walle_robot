@@ -4,6 +4,12 @@ import asyncio
 import websockets
 import socket
 import main
+import threading
+from pir import pir_detect
+
+print("> Start PIR detect")
+pir = threading.Thread(target=pir_detect)
+pir.start()
 
 localIP = "0.0.0.0"
 bindingPort = 4444
@@ -29,4 +35,3 @@ try:
 except KeyboardInterrupt:
   server.close()
   print("[SYS] > Shutdown server...")
-

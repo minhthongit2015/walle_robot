@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ~/.profile
+workon cv
+python3 ./server.py

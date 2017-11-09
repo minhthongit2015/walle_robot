@@ -67,8 +67,8 @@ class FaceAPI(CognitiveServicesAPIs):
     addPersonFaceAPI = BaseAPI('POST',
       '/face/v1.0/persongroups/{}/persons/{}/persistedFaces'.format(personGroupId, personId), {}, '', {}, 'addPersonFace')
 
-    if userData: addPersonFaceAPI.params['userData'] = userData
-    if targetFace: addPersonFaceAPI.params['targetFace'] = ','.join(targetFace)
+    if userData != '': addPersonFaceAPI.params['userData'] = userData
+    if targetFace != []: addPersonFaceAPI.params['targetFace'] = ','.join(targetFace)
     addPersonFaceAPI.params = '?' + self.parseParams(addPersonFaceAPI.params)
 
     if imgPath != '' or imgRaw != '' or imgUrl != '':

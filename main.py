@@ -84,6 +84,7 @@ class Main():
     rs = result.read().decode("utf-8", "strict") 
     rawImage = self.transporter.sendImage(imgRaw=api.body)
     APIType = '3' if api.name == "FaceDetect" else '2'
+    if APIType == '3': rawImage = ''
     await socket.send(rawImage + ('@' + APIType + '@' + rs))
     if APIType == '3':
       rsObj = self.face.parseResult(responseStr=rs)
