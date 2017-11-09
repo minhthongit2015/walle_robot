@@ -6,10 +6,12 @@ import time
 def pir_detect():
   PIR = 4
   Lazer = 14
+  Fan = 18
   GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BCM)
-  GPIO.setup(PIR, GPIO.IN)    # PIR sensor on pin 4
+  GPIO.setup(PIR, GPIO.IN)     # PIR sensor on pin 4
   GPIO.setup(Lazer, GPIO.OUT)  # Lazer on pin 14
+  GPIO.setup(Fan, GPIO.OUT)  # Fan on pin 18
   queue = []
   inMotion = False
   state = False
@@ -23,6 +25,7 @@ def pir_detect():
         inMotion = True
         state = not state
         GPIO.output(Lazer, state)
+        GPIO.output(Fan, state)
         print("> Motion detected!")
     if '0000' in szQueue[-4:]:
       inMotion = False

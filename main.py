@@ -91,6 +91,7 @@ class Main():
       for face in rsObj:
         if face['faceAttributes']['smile'] > 0.5:
           self.lazer.on()
+          print("> Smiling detected!")
           break
         else: self.lazer.off()
       faceIds = []
@@ -138,9 +139,9 @@ class Main():
       await socket.send("My name is Wall-E")
     elif u"khỏe không" in command or "how are you" in command:
       self.lazer.on()
-      await socket.send("I'm fine! thank you! and you?")
+      await socket.send("I'm fine, thank you, and you?")
     elif "tạm biệt" in command or "goodbye" in command:
-      self.lazer.on()
+      self.lazer.off()
       await socket.send("Goodbye, you will miss me..")
     elif "i love you" in command:
       self.lazer.on()

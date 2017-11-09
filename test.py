@@ -12,7 +12,7 @@ face = FaceAPI()
 # asyncio.get_event_loop().run_until_complete(face.createPersonGroup('team', 'group_01', 'Teamz'))
 # asyncio.get_event_loop().run_until_complete(face.getListPersonGroups())
 
-asyncio.get_event_loop().run_until_complete(face.createPerson(u"Thầy Tôn Long Phước", 'group_01', 'ThS. Tôn Long Phước - '))
+asyncio.get_event_loop().run_until_complete(face.createPerson(u"Thầy Tôn Long Phước", 'group_01', 'ThS. Tôn Long Phước - Chủ nhiện club Lập Trình Mobile'))
 
 # asyncio.get_event_loop().run_until_complete(face.getListPersonInGroup('group_01'))
 
